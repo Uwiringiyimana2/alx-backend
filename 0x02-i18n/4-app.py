@@ -27,14 +27,17 @@ def get_locale():
     """Find best match with our supported languages."""
     locale = request.args.get('locale')
     if locale and locale in app.config['LANGUAGES']:
+        print(f"Locale from URL parameter: {locale}")  # Debug print
         return locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    best_match = request.accept_languages.best_match(app.config['LANGUAGES'])
+    print(f"Best match from headers: {best_match}")  # Debug print
+    return best_match
 
 
 @app.route("/")
 def home():
     """home page"""
-    return render_template("0-index.html")
+    return render_template("4-index.html")
 
 
 if __name__ == "__main__":
